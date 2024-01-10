@@ -11,6 +11,16 @@ class ViewController: UIViewController {
 
     //MARK: - Outlets
 
+    private lazy var labelLogin: UILabel = {
+        let label = UILabel()
+        label.text = "Login"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 25)
+        label.textColor = UIColor.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     //MARK: - Lifestyle
 
     override func viewDidLoad() {
@@ -29,10 +39,12 @@ class ViewController: UIViewController {
     //MARK: - Setup
 
     private func setupHierachy() {
-
+        view.addSubview(labelLogin)
     }
 
     private func setupLayout() {
+        labelLogin.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -300).isActive = true
+        labelLogin.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
     }
 
