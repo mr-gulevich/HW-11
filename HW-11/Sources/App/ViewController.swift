@@ -160,7 +160,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
 
+    private lazy var signUpLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Dont have account?"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
+    private lazy var signUpLink: UILabel = {
+        let label = UILabel()
+        label.text = "Sign up"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        let linkColor = UIColor(red: 0.33, green: 0.44, blue: 0.69, alpha: 0.95)
+        label.textColor = linkColor
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     //MARK: - Lifestyle
 
@@ -198,6 +217,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(separatorRight)
         view.addSubview(facebookButton)
         view.addSubview(twitterButton)
+        view.addSubview(signUpLabel)
+        view.addSubview(signUpLink)
     }
 
     private func setupLayout() {
@@ -246,16 +267,23 @@ class ViewController: UIViewController, UITextFieldDelegate {
         separatorRight.heightAnchor.constraint(equalToConstant: 1).isActive = true
 
         //Facebook button constraints
-        facebookButton.topAnchor.constraint(equalTo: separatorName.bottomAnchor, constant: 40).isActive = true
+        facebookButton.topAnchor.constraint(equalTo: separatorName.bottomAnchor, constant: 20).isActive = true
         facebookButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -85).isActive = true
         facebookButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         facebookButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
         //Twitter button constraints
-        twitterButton.topAnchor.constraint(equalTo: separatorName.bottomAnchor, constant: 40).isActive = true
+        twitterButton.topAnchor.constraint(equalTo: separatorName.bottomAnchor, constant: 20).isActive = true
         twitterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 85).isActive = true
         twitterButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         twitterButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+
+        //Sign up constraints
+        signUpLabel.topAnchor.constraint(equalTo: twitterButton.bottomAnchor, constant: 40).isActive = true
+        signUpLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -50).isActive = true
+
+        signUpLink.topAnchor.constraint(equalTo: twitterButton.bottomAnchor, constant: 40).isActive = true
+        signUpLink.leftAnchor.constraint(equalTo: signUpLabel.rightAnchor, constant: 15).isActive = true
     }
 
     //MARK: - Actions
@@ -273,7 +301,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFieldPassword.text = "123"
     }
 }
-
 
 extension UITextField {
     func setLeftIcon(_ image: UIImage) {
@@ -294,7 +321,6 @@ extension UITextField {
         rightViewMode = .always
     }
 }
-
 
 extension UIButton {
     func setLeftIcon(_ image: UIImage) {
