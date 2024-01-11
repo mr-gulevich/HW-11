@@ -92,6 +92,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
 
+    private lazy var separatorName: UILabel = {
+        let label = UILabel()
+        label.text = "or connect with"
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private lazy var separatorLeft: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.lightGray
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    private lazy var separatorRight: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.lightGray
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+
 
     //MARK: - Lifestyle
 
@@ -124,6 +149,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(textFieldPassword)
         view.addSubview(loginButton)
         view.addSubview(forgotPasswordLink)
+        view.addSubview(separatorName)
+        view.addSubview(separatorLeft)
+        view.addSubview(separatorRight)
     }
 
     private func setupLayout() {
@@ -156,6 +184,20 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //Forgot Password link constraint
         forgotPasswordLink.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20).isActive = true
         forgotPasswordLink.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        //Separator constraints
+        separatorName.topAnchor.constraint(equalTo: forgotPasswordLink.bottomAnchor, constant: 100).isActive = true
+        separatorName.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+        separatorLeft.centerYAnchor.constraint(equalTo: separatorName.centerYAnchor, constant: 0).isActive = true
+        separatorLeft.rightAnchor.constraint(equalTo: separatorName.leftAnchor, constant: -10).isActive = true
+        separatorLeft.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        separatorLeft.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+        separatorRight.centerYAnchor.constraint(equalTo: separatorName.centerYAnchor, constant: 0).isActive = true
+        separatorRight.leftAnchor.constraint(equalTo: separatorName.rightAnchor, constant: 10).isActive = true
+        separatorRight.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        separatorRight.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
 
     //MARK: - Actions
