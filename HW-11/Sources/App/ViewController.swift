@@ -116,6 +116,50 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
 
+    private lazy var facebookButton: UIButton = {
+        let button = UIButton()
+        let facebookColor = UIColor(red: 0.26, green: 0.63, blue: 0.92, alpha: 0.95)
+        button.backgroundColor = facebookColor
+        button.setTitle("Facebook", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
+        button.setLeftIcon(UIImage(named: "facebook")!)
+
+        //shadow adding
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 10
+        button.layer.shouldRasterize = true
+        button.layer.rasterizationScale = UIScreen.main.scale
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var twitterButton: UIButton = {
+        let button = UIButton()
+        let twitterColor = UIColor(red: 0.33, green: 0.44, blue: 0.69, alpha: 0.95)
+        button.backgroundColor = twitterColor
+        button.setTitle("Twitter", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13.0)
+        button.setLeftIcon(UIImage(named: "twitter")!)
+
+        //shadow adding
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 10
+        button.layer.shouldRasterize = true
+        button.layer.rasterizationScale = UIScreen.main.scale
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
 
 
     //MARK: - Lifestyle
@@ -152,6 +196,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(separatorName)
         view.addSubview(separatorLeft)
         view.addSubview(separatorRight)
+        view.addSubview(facebookButton)
+        view.addSubview(twitterButton)
     }
 
     private func setupLayout() {
@@ -198,6 +244,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         separatorRight.leftAnchor.constraint(equalTo: separatorName.rightAnchor, constant: 10).isActive = true
         separatorRight.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         separatorRight.heightAnchor.constraint(equalToConstant: 1).isActive = true
+
+        //Facebook button constraints
+        facebookButton.topAnchor.constraint(equalTo: separatorName.bottomAnchor, constant: 40).isActive = true
+        facebookButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -85).isActive = true
+        facebookButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        facebookButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+
+        //Twitter button constraints
+        twitterButton.topAnchor.constraint(equalTo: separatorName.bottomAnchor, constant: 40).isActive = true
+        twitterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 85).isActive = true
+        twitterButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        twitterButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 
     //MARK: - Actions
@@ -237,3 +295,17 @@ extension UITextField {
     }
 }
 
+
+extension UIButton {
+    func setLeftIcon(_ image: UIImage) {
+        let leftIconView = UIImageView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        leftIconView.image = image
+
+        let iconContainerView = UIView(frame: CGRect(x: 20, y: 10, width: 50, height: 30))
+        iconContainerView.addSubview(leftIconView)
+
+        self.imageView?.contentMode = .left
+        self.setImage(UIImage(), for: .normal)
+        self.addSubview(iconContainerView)
+    }
+}
