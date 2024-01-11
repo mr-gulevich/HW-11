@@ -60,6 +60,38 @@ class ViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
 
+    private lazy var loginButton: UIButton = {
+        let button = UIButton()
+        let loginButtonColor = UIColor(red: 0.43, green: 0.47, blue: 0.8, alpha: 0.9)
+        button.backgroundColor = loginButtonColor
+        button.setTitle("Login", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+
+        //shadow adding
+        button.layer.cornerRadius = 30
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 10
+        button.layer.shouldRasterize = true
+        button.layer.rasterizationScale = UIScreen.main.scale
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var forgotPasswordLink: UILabel = {
+        let label = UILabel()
+        label.text = "Forgot your password?"
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(forgotPassword)))
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = UIColor.white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
 
     //MARK: - Lifestyle
 
@@ -73,6 +105,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         self.view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)
         
+        //set delegate and selector for fields Name and Password
         textFieldName.delegate = self
         textFieldName.addTarget(self, action: #selector(fieldFilled(_:)), for: .editingChanged)
 
@@ -89,10 +122,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(labelLogin)
         view.addSubview(textFieldName)
         view.addSubview(textFieldPassword)
+        view.addSubview(loginButton)
+        view.addSubview(forgotPasswordLink)
     }
 
     private func setupLayout() {
-        //Label constraits
+
+        //Login label constraits
         labelLogin.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -300).isActive = true
         labelLogin.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
@@ -109,6 +145,17 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFieldPassword.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         textFieldPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         textFieldPassword.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        //Login button constraits
+        loginButton.topAnchor.constraint(equalTo: textFieldPassword.bottomAnchor, constant: 60).isActive = true
+        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        loginButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        loginButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+        loginButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        //Forgot Password link constraint
+        forgotPasswordLink.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20).isActive = true
+        forgotPasswordLink.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
     //MARK: - Actions
@@ -120,6 +167,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             sender.rightView = nil
             sender.rightViewMode = .never
         }
+    }
+
+    @objc func forgotPassword() {
+        textFieldPassword.text = "123"
     }
 }
 
