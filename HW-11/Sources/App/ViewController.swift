@@ -25,9 +25,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let textField = UITextField()
         textField.backgroundColor = UIColor.white
         textField.placeholder = "enter your name"
-
         textField.setLeftIcon(UIImage(named: "man")!)
 
+        //shadow adding
         textField.layer.cornerRadius = 30
         textField.layer.shadowColor = UIColor.black.cgColor
         textField.layer.shadowOpacity = 0.3
@@ -35,10 +35,31 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textField.layer.shadowRadius = 10
         textField.layer.shouldRasterize = true
         textField.layer.rasterizationScale = UIScreen.main.scale
+
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
-    
+
+    private lazy var textFieldPassword: UITextField = {
+        let textField = UITextField()
+        textField.backgroundColor = UIColor.white
+        textField.placeholder = "enter your password"
+        textField.setLeftIcon(UIImage(named: "lock")!)
+        textField.isSecureTextEntry = true
+
+        //shadow adding
+        textField.layer.cornerRadius = 30
+        textField.layer.shadowColor = UIColor.black.cgColor
+        textField.layer.shadowOpacity = 0.3
+        textField.layer.shadowOffset = .zero
+        textField.layer.shadowRadius = 10
+        textField.layer.shouldRasterize = true
+        textField.layer.rasterizationScale = UIScreen.main.scale
+
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
 
     //MARK: - Lifestyle
 
@@ -55,6 +76,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
         textFieldName.delegate = self
         textFieldName.addTarget(self, action: #selector(fieldFilled(_:)), for: .editingChanged)
 
+        textFieldPassword.delegate = self
+        textFieldPassword.addTarget(self, action: #selector(fieldFilled(_:)), for: .editingChanged)
+
         setupHierachy()
         setupLayout()
     }
@@ -64,17 +88,27 @@ class ViewController: UIViewController, UITextFieldDelegate {
     private func setupHierachy() {
         view.addSubview(labelLogin)
         view.addSubview(textFieldName)
+        view.addSubview(textFieldPassword)
     }
 
     private func setupLayout() {
+        //Label constraits
         labelLogin.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -300).isActive = true
         labelLogin.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        //Name field constraits
         textFieldName.topAnchor.constraint(equalTo: labelLogin.bottomAnchor, constant: 30).isActive = true
         textFieldName.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         textFieldName.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         textFieldName.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         textFieldName.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
+        //Password field constraits
+        textFieldPassword.topAnchor.constraint(equalTo: textFieldName.bottomAnchor, constant: 30).isActive = true
+        textFieldPassword.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        textFieldPassword.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        textFieldPassword.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+        textFieldPassword.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
     //MARK: - Actions
@@ -92,7 +126,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 extension UITextField {
     func setLeftIcon(_ image: UIImage) {
-        let leftIconView = UIImageView(frame: CGRect(x: 30, y: 5, width: 25, height: 20))
+        let leftIconView = UIImageView(frame: CGRect(x: 30, y: 5, width: 22, height: 20))
         leftIconView.image = image
         let iconContainerView: UIView = UIView(frame: CGRect(x: 10, y: 20, width: 60, height: 30))
         iconContainerView.addSubview(leftIconView)
